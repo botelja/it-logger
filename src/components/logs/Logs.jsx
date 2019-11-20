@@ -1,27 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import LogsItem from './LogsItem';
 import Preloader from '../layout/Preloader';
+import PropTypes from 'prop-types';
 
-const Logs = () => {
-  const [logs, setLogs] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    getLogs();
-  }, []);
-
-  const getLogs = async () => {
-    setLoading(true);
-    const res = await fetch('/logs');
-    const data = await res.json();
-
-    setLogs(data);
-    setLoading(false);
-  };
-
+const Logs = ({ logs, loading }) => {
   if (loading) {
     return <Preloader />;
   }
+
   return (
     <ul className="collection with-header">
       <li className="collection-header">
@@ -34,6 +20,11 @@ const Logs = () => {
       )}
     </ul>
   );
+};
+
+Logs.propTypes = {
+  logs: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 
 export default Logs;

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
+import PropTypes from 'prop-types';
 
-const AddLogModal = () => {
+const AddLogModal = ({ addLogs }) => {
   const [message, setMessage] = useState('');
   const [attention, setAttention] = useState(false);
   const [tech, setTech] = useState('');
@@ -10,7 +11,9 @@ const AddLogModal = () => {
     if (message === '' || tech === '') {
       M.toast({ html: 'Please enter message and tech' });
     } else {
-      console.log(message, tech, attention);
+      const data = { message, attention, tech, date: new Date() };
+
+      addLogs(data);
 
       //Clear fields
       setMessage('');
@@ -80,6 +83,10 @@ const AddLogModal = () => {
       </div>
     </div>
   );
+};
+
+AddLogModal.propTypes = {
+  addLogs: PropTypes.func.isRequired
 };
 
 const modalStyle = {

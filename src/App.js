@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import SearchBar from './components/layout/SearchBar';
 import Logs from './components/logs/Logs';
 import AddBtn from './components/layout/AddBtn';
@@ -12,6 +12,38 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 import './App.css';
 
 const App = () => {
+  const [logs, setLogs] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    getLogs();
+  }, []);
+
+  const getLogs = async () => {
+    setLoading(true);
+    const res = await fetch('/logs');
+    const data = await res.json();
+
+    setLogs(data);
+    setLoading(false);
+  };
+
+  const addLogs = async (data) => {
+    try {
+      const response = await fetch('/logs', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const json = await response.json();
+      setLogs([...logs, json]);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   useEffect(() => {
     //Init Materialize JS
     M.AutoInit();
@@ -22,11 +54,11 @@ const App = () => {
       <SearchBar />
       <div className="container">
         <AddBtn />
-        <AddLogModal />
+        <AddLogModal addLogs={addLogs} />
         <EditLogModal />
         <AddTechModal />
         <TechListModal />
-        <Logs />
+        <Logs logs={logs} loading={loading} />
       </div>
     </Fragment>
   );

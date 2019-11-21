@@ -1,10 +1,10 @@
 {
   "logs": [
     {
-      "message": "Changed hard drive on workstation 005",
+      "message": "Changed card on workstation 009",
       "attention": false,
       "tech": "Sam Smith",
-      "date": "2019-11-20T20:05:00.934Z",
+      "date": "2019-11-21T15:47:04.165Z",
       "id": 1
     }
   ],

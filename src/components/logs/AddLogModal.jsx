@@ -15,10 +15,12 @@ const AddLogModal = ({ addLogs }) => {
 
       addLogs(data);
 
+      M.toast({ html: `Added by ${tech}` });
+
       //Clear fields
       setMessage('');
-      setAttention(false);
       setTech('');
+      setAttention(false);
     }
   };
 
@@ -61,8 +63,10 @@ const AddLogModal = ({ addLogs }) => {
           <p>
             <label>
               <input
+                className="filled-in"
                 type="checkbox"
                 name="attention"
+                checked={attention}
                 value={attention}
                 onChange={() => setAttention(!attention)}
               />

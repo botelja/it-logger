@@ -37,11 +37,18 @@ const App = () => {
           'Content-Type': 'application/json'
         }
       });
-      const json = await response.json();
-      setLogs([...logs, json]);
+      const log = await response.json();
+      setLogs([...logs, log]);
     } catch (error) {
       console.error('Error:', error);
     }
+  };
+
+  const deleteLog = async (id) => {
+    await fetch(`/logs/${id}`, {
+      method: 'DELETE'
+    });
+    setLogs(logs.filter((log) => log.id !== id));
   };
 
   useEffect(() => {
@@ -58,7 +65,7 @@ const App = () => {
         <EditLogModal />
         <AddTechModal />
         <TechListModal />
-        <Logs logs={logs} loading={loading} />
+        <Logs logs={logs} loading={loading} handleDelete={deleteLog} />
       </div>
     </Fragment>
   );

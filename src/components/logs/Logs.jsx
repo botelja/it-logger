@@ -3,7 +3,7 @@ import LogsItem from './LogsItem';
 import Preloader from '../layout/Preloader';
 import PropTypes from 'prop-types';
 
-const Logs = ({ logs, loading }) => {
+const Logs = ({ logs, loading, handleDelete }) => {
   if (loading) {
     return <Preloader />;
   }
@@ -16,7 +16,9 @@ const Logs = ({ logs, loading }) => {
       {!loading && logs.length === 0 ? (
         <p className="center">No logs to show...</p>
       ) : (
-        logs.map((log) => <LogsItem key={log.id} log={log} />)
+        logs.map((log) => (
+          <LogsItem key={log.id} log={log} handleDelete={handleDelete} />
+        ))
       )}
     </ul>
   );
@@ -24,7 +26,8 @@ const Logs = ({ logs, loading }) => {
 
 Logs.propTypes = {
   logs: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
+  handleDelete: PropTypes.func.isRequired
 };
 
 export default Logs;

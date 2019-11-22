@@ -1,11 +1,11 @@
 {
   "logs": [
     {
+      "id": 1,
       "message": "Changed card on workstation 009",
-      "attention": false,
+      "attention": true,
       "tech": "Sam Smith",
-      "date": "2019-11-21T15:47:04.165Z",
-      "id": 1
+      "date": "2019-11-22T14:57:20.399Z"
     }
   ],
   "techs": [

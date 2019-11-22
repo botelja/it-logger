@@ -14,6 +14,7 @@ import './App.css';
 const App = () => {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [current, setCurrent] = useState(null);
 
   useEffect(() => {
     getLogs();
@@ -51,6 +52,26 @@ const App = () => {
     setLogs(logs.filter((log) => log.id !== id));
   };
 
+  const updateLog = async (data) => {
+    try {
+      const response = await fetch(`/logs/${data.id}`, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const updateLog = await response.json();
+      setLogs(logs.map((log) => (log.id === updateLog.id ? updateLog : log)));
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const getCurrent = (data) => {
+    setCurrent(data);
+  };
+
   useEffect(() => {
     //Init Materialize JS
     M.AutoInit();
@@ -62,10 +83,15 @@ const App = () => {
       <div className="container">
         <AddBtn />
         <AddLogModal addLogs={addLogs} />
-        <EditLogModal />
+        <EditLogModal updateLog={updateLog} current={current} />
         <AddTechModal />
         <TechListModal />
-        <Logs logs={logs} loading={loading} handleDelete={deleteLog} />
+        <Logs
+          logs={logs}
+          loading={loading}
+          handleDelete={deleteLog}
+          getCurrent={getCurrent}
+        />
       </div>
     </Fragment>
   );

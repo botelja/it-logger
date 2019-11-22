@@ -3,16 +3,21 @@ import Moment from 'react-moment';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import PropTypes from 'prop-types';
 
-const LogsItem = ({ log, handleDelete }) => {
+const LogsItem = ({ log, handleDelete, getCurrent }) => {
   const onDelete = () => {
     handleDelete(log.id);
     M.toast({ html: 'Log is deleted' });
+  };
+
+  const onUpdate = () => {
+    getCurrent(log);
   };
   return (
     <li className="collection-item">
       <a
         href="#edit-log-modal"
         className={`modal-trigger ${log.attention ? 'red-text' : 'blue-text'}`}
+        onClick={onUpdate}
       >
         {log.message}
       </a>
@@ -31,7 +36,8 @@ const LogsItem = ({ log, handleDelete }) => {
 
 LogsItem.propTypes = {
   log: PropTypes.object.isRequired,
-  handleDelete: PropTypes.func.isRequired
+  handleDelete: PropTypes.func.isRequired,
+  getCurrent: PropTypes.func.isRequired
 };
 
 export default LogsItem;

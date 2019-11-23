@@ -68,6 +68,15 @@ const App = () => {
     }
   };
 
+  const searchLogs = async (text) => {
+    setLoading(true);
+    const res = await fetch(`/logs?q=${text}`);
+    const data = await res.json();
+
+    setLogs(data);
+    setLoading(false);
+  };
+
   const getCurrent = (data) => {
     setCurrent(data);
   };
@@ -79,7 +88,7 @@ const App = () => {
 
   return (
     <Fragment>
-      <SearchBar />
+      <SearchBar searchLogs={searchLogs} />
       <div className="container">
         <AddBtn />
         <AddLogModal addLogs={addLogs} />

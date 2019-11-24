@@ -63,9 +63,6 @@ const AddLogModal = ({ addLogs, techs }) => {
                     {tech.firstName} {tech.lastName}
                   </option>
                 ))}
-              {/* <option value="Sam Smith">Sam Smith</option>
-              <option value="John Doe">John Doe</option>
-              <option value="Jill Jhonson">Jill Jhonson</option> */}
             </select>
           </div>
         </div>

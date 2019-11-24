@@ -1,42 +1,30 @@
 {
   "logs": [
     {
-      "id": 1,
-      "message": "Changed card on workstation 009",
+      "message": "Changed hard drive workstation 009",
+      "attention": false,
+      "tech": "Jhon Doe",
+      "date": "2019-11-24T07:32:07.727Z",
+      "id": 1
+    },
+    {
+      "message": "Fix server card on workstation 034",
       "attention": true,
       "tech": "Sam Smith",
-      "date": "2019-11-22T14:57:20.399Z"
-    },
-    {
-      "message": "Change hard drive workstation 009",
-      "attention": false,
-      "tech": "John Doe",
-      "date": "2019-11-23T17:16:06.053Z",
+      "date": "2019-11-24T07:32:38.774Z",
       "id": 2
-    },
-    {
-      "message": "Fix server card workstation 003",
-      "attention": true,
-      "tech": "Jill Jhonson",
-      "date": "2019-11-23T17:16:37.855Z",
-      "id": 3
     }
   ],
   "techs": [
     {
-      "id": 1,
-      "firstName": "John",
-      "lastName": "Doe"
+      "firstName": "Jhon",
+      "lastName": "Doe",
+      "id": 1
     },
     {
-      "id": 2,
-      "firstName": "Jill",
-      "lastName": "Jhonson"
-    },
-    {
-      "id": 3,
       "firstName": "Sam",
-      "lastName": "Smith"
+      "lastName": "Smith",
+      "id": 2
     }
   ]
 }

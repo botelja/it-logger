@@ -15,9 +15,11 @@ const App = () => {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [current, setCurrent] = useState(null);
+  const [techs, setTechs] = useState([]);
 
   useEffect(() => {
     getLogs();
+    getTechs();
   }, []);
 
   const getLogs = async () => {
@@ -81,6 +83,39 @@ const App = () => {
     setCurrent(data);
   };
 
+  const getTechs = async () => {
+    setLoading(true);
+
+    const res = await fetch('/techs');
+    const data = await res.json();
+
+    setTechs(data);
+    setLoading(false);
+  };
+
+  const addTech = async (data) => {
+    try {
+      const response = await fetch('/techs', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const tech = await response.json();
+      setTechs([...techs, tech]);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const deleteTech = async (id) => {
+    await fetch(`/techs/${id}`, {
+      method: 'DELETE'
+    });
+    setTechs(techs.filter((tech) => tech.id !== id));
+  };
+
   useEffect(() => {
     //Init Materialize JS
     M.AutoInit();
@@ -91,10 +126,14 @@ const App = () => {
       <SearchBar searchLogs={searchLogs} />
       <div className="container">
         <AddBtn />
-        <AddLogModal addLogs={addLogs} />
+        <AddLogModal addLogs={addLogs} techs={techs} />
         <EditLogModal updateLog={updateLog} current={current} />
-        <AddTechModal />
-        <TechListModal />
+        <AddTechModal addTech={addTech} />
+        <TechListModal
+          techs={techs}
+          loading={loading}
+          handleDelete={deleteTech}
+        />
         <Logs
           logs={logs}
           loading={loading}

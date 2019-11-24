@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import PropTypes from 'prop-types';
 
-const AddLogModal = ({ addLogs }) => {
+const AddLogModal = ({ addLogs, techs }) => {
   const [message, setMessage] = useState('');
   const [attention, setAttention] = useState(false);
   const [tech, setTech] = useState('');
@@ -53,9 +53,19 @@ const AddLogModal = ({ addLogs }) => {
               <option value="" disabled>
                 Select Technician
               </option>
-              <option value="Sam Smith">Sam Smith</option>
+
+              {techs !== null &&
+                techs.map((tech) => (
+                  <option
+                    key={tech.id}
+                    value={`${tech.firstName} ${tech.lastName}`}
+                  >
+                    {tech.firstName} {tech.lastName}
+                  </option>
+                ))}
+              {/* <option value="Sam Smith">Sam Smith</option>
               <option value="John Doe">John Doe</option>
-              <option value="Jill Jhonson">Jill Jhonson</option>
+              <option value="Jill Jhonson">Jill Jhonson</option> */}
             </select>
           </div>
         </div>
